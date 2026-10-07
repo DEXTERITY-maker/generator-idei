@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Генератор идей — 120 идей, чем заняться</title>
+<!-- Описание для поиска и превью ссылок -->
+<meta name="description" content="Не знаешь, чем заняться? 120 конкретных идей с юмором: свидание, уборка, подарок, отдых, семья, работа, путешествия. Одна кнопка — и готово.">
+<meta name="theme-color" content="#667eea" id="themeColor">
+<!-- Open Graph: как ссылка выглядит в Telegram, VK, WhatsApp -->
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="Генератор идей">
+<meta property="og:title" content="🧠 Генератор идей">
+<meta property="og:description" content="120 идей для свидания, уборки, подарка, отдыха и путешествий. Жми кнопку — получай идею.">
+<meta property="og:url" content="https://dexterity-maker.github.io/generator-idei/">
+<meta property="og:image" content="https://dexterity-maker.github.io/generator-idei/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Генератор идей: 120 идей с юмором">
+<link rel="canonical" href="https://dexterity-maker.github.io/generator-idei/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://dexterity-maker.github.io/generator-idei/og.png">
+<meta name="twitter:title" content="🧠 Генератор идей">
+<meta name="twitter:description" content="120 идей для свидания, уборки, подарка, отдыха и путешествий.">
+<!-- Иконка вкладки: лампочка на фирменном градиенте (SVG прямо в файле) -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23667eea'/%3E%3Cstop offset='1' stop-color='%23764ba2'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Ccircle cx='32' cy='27' r='13' fill='%23fff'/%3E%3Crect x='25' y='40' width='14' height='6' rx='2' fill='%23fff'/%3E%3Crect x='27' y='48' width='10' height='5' rx='2.5' fill='%23fff'/%3E%3C/svg%3E">
+<script>
+  /* Тема — до отрисовки страницы, чтобы не мигала светлая */
+  try { if (localStorage.getItem("theme") === "dark") document.documentElement.setAttribute("data-theme", "dark"); } catch (e) {}
+</script>
+<style>
+  /* ---------- Цвета: светлая тема по умолчанию ---------- */
+  :root {
+    --g1: #667eea;
+    --g2: #764ba2;
+    --grad: linear-gradient(135deg, var(--g1), var(--g2));
+    --page: linear-gradient(135deg, #667eea, #764ba2);
+    --surface: #ffffff;
+    --surface-2: #f6f6fd;
+    --line: #e3e4f3;
+    --ink: #1f2240;
+    --text: #3c405f;
+    --muted: #6b6f8f;
+    --label: #764ba2;
+    --chip: rgba(25, 20, 70, 0.28);          /* белый текст на ней ≥ 5,6:1 даже в светлой части градиента */
+    --chip-hover: rgba(25, 20, 70, 0.4);
+    --chip-line: rgba(255, 255, 255, 0.35);
+    --active: linear-gradient(135deg, #4c51bf, #6b46c1);   /* активная категория: белый текст 6,5:1 */
+    --chip-text: #ffffff;
+    --on-page: #ffffff;
+    --footer-bg: rgba(25, 20, 70, 0.28);       /* подложка подвала: белый текст ≥ 5,6:1 */
+    --shadow: 0 18px 50px rgba(31, 34, 64, 0.25);
+    color-scheme: light;
+  }
+  /* ---------- Тёмная тема ---------- */
+  :root[data-theme="dark"] {
+    --page: linear-gradient(135deg, #1a202c, #2d3748);
+    --surface: #2d3748;
+    --surface-2: #374256;
+    --line: #4a5568;
+    --ink: #f1f3f9;
+    --text: #d5dae6;
+    --muted: #a7b0c3;
+    --label: #a3b1ff;
+    --chip: rgba(255, 255, 255, 0.06);
+    --chip-hover: rgba(255, 255, 255, 0.12);
+    --chip-line: rgba(255, 255, 255, 0.16);
+    --chip-text: #e2e8f0;
+    --on-page: #e2e8f0;
+    --footer-bg: rgba(0, 0, 0, 0.2);
+    --shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; min-height: 100%; }
+  body {
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: var(--page);
+    background-attachment: fixed;
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 40px 20px 48px; display: grid; gap: 22px; }
+
+  /* ---------- Переключатель темы (правый верхний угол) ---------- */
+  .theme-btn {
+    position: fixed; top: 14px; right: 14px; z-index: 20;
+    width: 48px; height: 48px; border-radius: 50%;
+    border: 1px solid var(--chip-line); background: var(--surface);
+    font-size: 22px; cursor: pointer; box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+    transition: transform 0.15s;
+  }
+  .theme-btn:active { transform: scale(0.92); }
+
+  /* ---------- Заголовок ---------- */
+  header { background: var(--surface); border-radius: 24px; padding: 22px 24px; text-align: center; box-shadow: var(--shadow); }
+  h1 { margin: 0; font-size: clamp(28px, 6vw, 40px); font-weight: 800; letter-spacing: -0.02em; line-height: 1.15; }
+  h1 .txt { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; }
+  :root[data-theme="dark"] h1 .txt { background: linear-gradient(135deg, #a3b1ff, #c9a7f0); -webkit-background-clip: text; background-clip: text; }
+  header p { margin: 8px 0 0; color: var(--muted); font-size: 15px; }
+
+  /* ---------- Категории ---------- */
+  .cats { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+  .cat {
+    appearance: none; border: 1px solid var(--chip-line); background: var(--chip); color: var(--chip-text);
+    font: 600 14px/1 system-ui, -apple-system, "Segoe UI", sans-serif;
+    padding: 10px 16px; min-height: 40px; border-radius: 999px; cursor: pointer;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+  }
+  .cat:hover { background: var(--chip-hover); }
+  .cat:active { transform: scale(0.96); }
+  .cat .n { opacity: 0.85; font-weight: 500; }
+  .cat.active { background: var(--active); border-color: #fff; color: #fff; box-shadow: 0 6px 18px rgba(31, 34, 64, 0.35); }
+  .cat.active .n { opacity: 0.9; }
+
+  /* ---------- Карточка идеи ---------- */
+  .card {
+    position: relative; background: var(--surface); border-radius: 24px;
+    padding: 30px 30px 26px 38px; box-shadow: var(--shadow); overflow: hidden;
+    min-height: 220px; display: grid; gap: 12px; align-content: start;
+  }
+  .card::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 8px; background: var(--grad); }
+  .card .body { display: grid; gap: 12px; transition: opacity 0.28s ease, transform 0.28s ease; }
+  .card .body.out { opacity: 0; transform: translateY(12px); }
+  .card .body.in { opacity: 0; transform: translateY(-12px); }
+  .label { font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--label); }
+  .title { margin: 0; font-size: clamp(24px, 5vw, 32px); font-weight: 800; line-height: 1.2; letter-spacing: -0.01em; }
+  .desc { margin: 0; font-size: 17px; line-height: 1.6; color: var(--text); }
+  .actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 6px; }
+  .icon-btn {
+    appearance: none; width: 48px; height: 48px; border-radius: 14px;
+    border: 1px solid var(--line); background: var(--surface-2);
+    font-size: 22px; cursor: pointer; transition: transform 0.15s, filter 0.2s;
+  }
+  .icon-btn:hover { filter: brightness(0.96); }
+  .icon-btn:active { transform: scale(0.92); }
+
+  /* ---------- Главная кнопка ---------- */
+  .gen {
+    appearance: none; border: 0; justify-self: center; width: min(100%, 360px); min-height: 60px;
+    border-radius: 18px; background: var(--surface); color: var(--ink);
+    font: 800 20px/1 system-ui, -apple-system, "Segoe UI", sans-serif;
+    cursor: pointer; box-shadow: var(--shadow); transition: transform 0.15s;
+  }
+  .gen:hover { transform: translateY(-2px); }
+  .gen:active { transform: translateY(1px) scale(0.98); }
+
+  /* ---------- Панели: недавние и избранное ---------- */
+  .panel { background: var(--surface); border-radius: 24px; padding: 20px 22px 18px; box-shadow: var(--shadow); }
+  .panel h2 { margin: 0 0 12px; font-size: 19px; font-weight: 800; }
+  .panel-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
+  .panel-head h2 { margin: 0; }
+  .list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+  .item {
+    display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; align-items: center;
+    padding: 10px 10px 10px 14px; border-radius: 14px; background: var(--surface-2); border-left: 4px solid var(--g1);
+  }
+  .item .open { appearance: none; border: 0; background: none; padding: 2px 0; text-align: left; cursor: pointer; font: inherit; color: inherit; }
+  .item .c { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--label); margin-bottom: 2px; }
+  .item .t { font-weight: 700; font-size: 15px; overflow-wrap: anywhere; }
+  .recent .item { grid-template-columns: minmax(0, 1fr); padding: 8px 12px; }
+  .recent .item .t { font-size: 14px; font-weight: 600; }
+  .del {
+    appearance: none; width: 36px; height: 36px; border-radius: 10px; border: 0; background: transparent;
+    color: var(--muted); font-size: 22px; line-height: 1; cursor: pointer;
+  }
+  .del:hover { background: var(--line); color: var(--ink); }
+  .empty { margin: 0; color: var(--muted); }
+  .export {
+    appearance: none; border: 1px solid var(--line); background: var(--surface-2); color: var(--ink);
+    border-radius: 12px; padding: 0 14px; min-height: 40px; font: 600 14px system-ui, -apple-system, "Segoe UI", sans-serif; cursor: pointer;
+  }
+
+  /* ---------- Подвал: счётчик и подсказка ---------- */
+  footer { justify-self: center; text-align: center; color: var(--on-page); font-size: 13px; display: grid; gap: 6px;
+           background: var(--footer-bg); border-radius: 14px; padding: 10px 16px; }
+  .count-num { font-weight: 700; font-variant-numeric: tabular-nums; cursor: pointer; user-select: none; -webkit-user-select: none; padding: 2px 6px; border-radius: 6px; }
+  .count-num:hover { background: rgba(255, 255, 255, 0.18); }
+  kbd { font: 600 12px ui-monospace, Menlo, monospace; padding: 1px 6px; border-radius: 5px; background: rgba(255, 255, 255, 0.18); }
+
+  /* ---------- Уведомления (toast) ---------- */
+  .toast {
+    position: fixed; left: 50%; bottom: 24px; z-index: 40;
+    transform: translate(-50%, 20px); opacity: 0; pointer-events: none;
+    background: rgba(20, 22, 40, 0.88); color: #fff; padding: 12px 18px; border-radius: 14px;
+    font-size: 15px; font-weight: 600; max-width: calc(100% - 32px); text-align: center;
+    transition: opacity 0.3s, transform 0.3s;
+  }
+  .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+  /* ---------- Конфетти ---------- */
+  .confetti { position: fixed; top: 0; left: 0; width: 10px; height: 14px; border-radius: 2px; z-index: 30; pointer-events: none; animation: fall 2s ease-out forwards; }
+  @keyframes fall {
+    0% { transform: translate(0, 0) rotate(0); opacity: 1; }
+    100% { transform: translate(var(--dx), var(--dy)) rotate(var(--rot)); opacity: 0; }
+  }
+
+  button:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+  .card button:focus-visible, .panel button:focus-visible { outline-color: var(--g1); }
+
+  /* ---------- Телефон ---------- */
+  @media (max-width: 480px) {
+    .wrap { padding: 72px 14px 32px; gap: 16px; }
+    header { padding: 18px 16px; border-radius: 20px; }
+    .card { padding: 24px 20px 20px 28px; min-height: 200px; border-radius: 20px; }
+    .desc { font-size: 16px; }
+    .cat { padding: 9px 13px; font-size: 13px; }
+    .gen { width: 100%; }
+    .panel { padding: 16px 14px 14px; border-radius: 20px; }
+    .actions { justify-content: stretch; }
+    .actions .icon-btn { flex: 1; }
+    .hint { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .card .body, .cat, .gen, .icon-btn, .toast { transition: none; }
+  }
+</style>
+</head>
+<body>
+<button class="theme-btn" id="themeBtn" type="button" aria-label="Тёмная тема">🌙</button>
+
+<main class="wrap">
+  <header>
+    <h1><span>🧠</span> <span class="txt">Генератор идей</span></h1>
+    <p>Выбери категорию и жми — идея найдётся.</p>
+  </header>
+
+  <nav class="cats" id="cats" aria-label="Категории"></nav>
+
+  <!-- Карточка текущей идеи -->
+  <article class="card" aria-live="polite">
+    <div class="body" id="cardBody">
+      <div class="label" id="cardCat"></div>
+      <h2 class="title" id="cardTitle"></h2>
+      <p class="desc" id="cardDesc"></p>
+    </div>
+    <div class="actions">
+      <button class="icon-btn" id="copyBtn" type="button" title="Скопировать (C)" aria-label="Скопировать идею">📋</button>
+      <button class="icon-btn" id="shareBtn" type="button" title="Поделиться" aria-label="Поделиться идеей">📤</button>
+      <button class="icon-btn" id="favBtn" type="button" title="В избранное (F)" aria-label="Добавить в избранное" aria-pressed="false">🤍</button>
+    </div>
+  </article>
+
+  <button class="gen" id="genBtn" type="button">🎲 Сгенерировать</button>
+
+  <!-- Последние 5 идей (только в памяти страницы) -->
+  <section class="panel recent" aria-labelledby="recentTitle">
+    <h2 id="recentTitle">🕓 Недавние</h2>
+    <ul class="list" id="recentList"></ul>
+  </section>
+
+  <!-- Избранное (localStorage: fav_ideas) -->
+  <section class="panel" aria-labelledby="favTitle">
+    <div class="panel-head">
+      <h2 id="favTitle">⭐ Избранное</h2>
+      <button class="export" id="exportBtn" type="button" hidden>⬇️ Скачать избранное</button>
+    </div>
+    <ul class="list" id="favList"></ul>
+    <p class="empty" id="favEmpty">Пока пусто</p>
+  </section>
+
+  <footer>
+    <div>Сгенерировано идей: <span class="count-num" id="genCount" title="Двойной клик или долгое нажатие — сбросить">0</span></div>
+    <div class="hint"><kbd>Пробел</kbd> — новая идея · <kbd>C</kbd> — копировать · <kbd>F</kbd> — в избранное · <kbd>D</kbd> — тема</div>
+  </footer>
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const IDEAS = [
+  {"id": 1, "category": "Творчество", "title": "Написать рассказ в 6 слов", "description": "Придумай историю, уложившись ровно в шесть слов. Отличная тренировка для мозга и повод почувствовать себя Хемингуэем."},
+  {"id": 2, "category": "Творчество", "title": "Портрет соседа по памяти", "description": "Нарисуй соседа, не подглядывая. Сходство не гарантируется, зато смех — да. Показывать ему по желанию."},
+  {"id": 3, "category": "Творчество", "title": "Песня о немытой посуде", "description": "Сочини куплет и припев о грязной посуде на любимый мотив. Вдруг она застыдится и помоется сама."},
+  {"id": 4, "category": "Творчество", "title": "Скульптура из канцелярии", "description": "Собери фигуру из скрепок, ластиков и стикеров за 20 минут. Дай ей пафосное название и выстави на полку."},
+  {"id": 5, "category": "Творчество", "title": "Комикс из жизни кота", "description": "Нарисуй комикс из четырёх кадров о том, что кот думает о хозяевах. Подозреваем, там будет драма."},
+  {"id": 6, "category": "Творчество", "title": "Фотоохота на один цвет", "description": "Выйди на прогулку и сфотографируй 15 предметов одного цвета. Получится стильная подборка из обычного двора."},
+  {"id": 7, "category": "Творчество", "title": "Стих из рекламных вывесок", "description": "Собери стихотворение только из слов на вывесках по дороге домой. Поэзия улиц в буквальном смысле."},
+  {"id": 8, "category": "Творчество", "title": "Новый язык жестов для семьи", "description": "Придумай пять тайных жестов: «пора домой», «спаси меня от разговора» и другие. Научи близких — пригодится в гостях."},
+  {"id": 9, "category": "Творчество", "title": "Натюрморт из холодильника", "description": "Расставь продукты как картину старых мастеров и сфотографируй при свечах. Назови «Кефир на закате»."},
+  {"id": 10, "category": "Творчество", "title": "Сказка с конца", "description": "Начни историю с фразы «И жили они долго и счастливо» и раскрути события назад. Мозг слегка перевернётся."},
+  {"id": 11, "category": "Творчество", "title": "Узоры из кофейной гущи", "description": "Нарисуй картину остатками кофе на бумаге. Пахнет вкусно, выглядит как старинная карта сокровищ."},
+  {"id": 12, "category": "Творчество", "title": "Мини-фильм на 60 секунд", "description": "Сними на телефон фильм ровно на минуту с сюжетом, героем и неожиданным финалом. Главная роль — у тапка."},
+  {"id": 13, "category": "Свидание", "title": "Ужин из трёх случайных продуктов", "description": "Каждый вслепую выбирает в магазине по продукту, а потом вместе готовите из этого ужин. Кулинарная рулетка."},
+  {"id": 14, "category": "Свидание", "title": "Туристы в родном городе", "description": "Весь день ведите себя как иностранцы: карта, фото у каждого памятника, восторг от трамваев. Город заиграет иначе."},
+  {"id": 15, "category": "Свидание", "title": "Свидание без телефонов", "description": "Отдайте телефоны на хранение другу на вечер. Поначалу будет ломка, потом — настоящий разговор."},
+  {"id": 16, "category": "Свидание", "title": "Обмен плейлистами", "description": "Составьте друг другу плейлисты из 10 песен «про нас» и слушайте вместе с объяснениями. Будут сюрпризы."},
+  {"id": 17, "category": "Свидание", "title": "Пикник на полу гостиной", "description": "Плед, корзинка, бутерброды и звуки леса из колонки — прямо дома. Комары не приглашены."},
+  {"id": 18, "category": "Свидание", "title": "Нарисовать портреты друг друга", "description": "Сядьте напротив и нарисуйте друг друга за 10 минут. Обижаться на результат запрещено правилами."},
+  {"id": 19, "category": "Свидание", "title": "Квест по местам знакомства", "description": "Пройдите по местам, где всё начиналось, и в каждом вспомните одну смешную деталь. Ностальгия гарантирована."},
+  {"id": 20, "category": "Свидание", "title": "Свидание наоборот", "description": "Начните с десерта, закончите супом, а прощание проведите в начале. Логика отдыхает, веселье работает."},
+  {"id": 21, "category": "Свидание", "title": "Мастер-класс друг для друга", "description": "Каждый за 20 минут учит партнёра своему навыку: от вязания до жонглирования. Узнаете друг друга лучше."},
+  {"id": 22, "category": "Свидание", "title": "Звёздная ночь на балконе", "description": "Скачайте карту звёздного неба и найдите пять созвездий. Не нашли — придумайте свои и назовите в честь друг друга."},
+  {"id": 23, "category": "Свидание", "title": "Дегустация вслепую", "description": "По очереди угощайте друг друга с завязанными глазами и угадывайте вкус. Сюрприз-ингредиент обязателен."},
+  {"id": 24, "category": "Свидание", "title": "Капсула времени на двоих", "description": "Напишите письма себе через пять лет, спрячьте в банку и подпишите дату вскрытия. Главное — не потерять банку."},
+  {"id": 25, "category": "Бизнес", "title": "Тестовая продажа за 48 часов", "description": "Выбери одну простую услугу, опиши её в соцсети и попробуй получить первого клиента за два дня. Проверка идеи без вложений."},
+  {"id": 26, "category": "Бизнес", "title": "Аудит своих подписок", "description": "Выпиши все платные подписки и отмени ненужные. Сэкономленное — твой первый инвестиционный капитал."},
+  {"id": 27, "category": "Бизнес", "title": "Мини-лендинг за вечер", "description": "Собери простую страницу о своём продукте на конструкторе. Даже если продукта ещё нет — узнаешь, нужен ли он людям."},
+  {"id": 28, "category": "Бизнес", "title": "Пять интервью с клиентами", "description": "Поговори с пятью людьми о их проблеме, не продавая ничего. Самые ценные идеи прячутся в их жалобах."},
+  {"id": 29, "category": "Бизнес", "title": "Продать ненужное за неделю", "description": "Выстави на продажу 10 вещей, которые пылятся. Получишь деньги, место и навык продаж в одном флаконе."},
+  {"id": 30, "category": "Бизнес", "title": "Питч в лифте", "description": "Опиши свою идею за 30 секунд и запиши на диктофон. Если сам заскучал на 20-й секунде — переписывай."},
+  {"id": 31, "category": "Бизнес", "title": "Конкурент глазами клиента", "description": "Сделай пробную покупку у конкурента и запиши всё, что раздражало. Это готовый список твоих преимуществ."},
+  {"id": 32, "category": "Бизнес", "title": "Бизнес-план на салфетке", "description": "Уместись на одной салфетке: что продаёшь, кому, почём и сколько это стоит тебе. Больше — уже бюрократия."},
+  {"id": 33, "category": "Бизнес", "title": "Коллаборация с соседним бизнесом", "description": "Предложи соседней кофейне или магазину общий бонус для клиентов. Две маленькие аудитории — одна большая."},
+  {"id": 34, "category": "Бизнес", "title": "Название без смеха", "description": "Придумай 20 названий для проекта и покажи друзьям. Убери те, над которыми смеялись не там, где надо."},
+  {"id": 35, "category": "Бизнес", "title": "Финансовый день недели", "description": "Назначь один день недели для учёта доходов и расходов. Деньги любят внимание, особенно по средам."},
+  {"id": 36, "category": "Бизнес", "title": "Видео-визитка за 15 минут", "description": "Запиши минутное видео о себе и своём деле на телефон. Без идеального света — зато с живым лицом."},
+  {"id": 37, "category": "Уборка", "title": "Уборка под один альбом", "description": "Включи любимый альбом и убирайся, пока он играет. Закончилась музыка — закончилась уборка, честный договор."},
+  {"id": 38, "category": "Уборка", "title": "Правило одной коробки", "description": "Собери в коробку вещи, которые не нужны. Не вспомнил о ней за месяц — смело отдавай не открывая."},
+  {"id": 39, "category": "Уборка", "title": "Экскурсия по холодильнику", "description": "Проведи ревизию: всё просроченное — на выход, всё странное — на опознание. Иногда там находятся загадки прошлого."},
+  {"id": 40, "category": "Уборка", "title": "Охота на носки-одиночки", "description": "Собери все непарные носки и устрой им сведение пар. Оставшимся одиночкам — новая жизнь в роли тряпок."},
+  {"id": 41, "category": "Уборка", "title": "Расхламить телефон", "description": "Удали 200 лишних фото и 10 ненужных приложений. Телефон вздохнёт с облегчением и станет быстрее."},
+  {"id": 42, "category": "Уборка", "title": "Пятиминутка каждого угла", "description": "Поставь таймер на 5 минут и убери только один угол. Маленькие победы накапливаются быстрее больших планов."},
+  {"id": 43, "category": "Уборка", "title": "Уборка-соревнование", "description": "Раздели квартиру между домашними и засеки время. Победитель выбирает фильм на вечер, проигравший делает чай."},
+  {"id": 44, "category": "Уборка", "title": "Ящик с проводами", "description": "Разбери ящик с проводами и подпиши каждый зарядник. Неопознанные провода от неведомых устройств — в утиль."},
+  {"id": 45, "category": "Уборка", "title": "Взгляд гостя", "description": "Выйди за дверь, зайди как гость и запиши, что первым бросается в глаза. Начни уборку именно с этого."},
+  {"id": 46, "category": "Уборка", "title": "Генеральная почта", "description": "Разбери электронную почту до нуля входящих и отпишись от рассылок. Цифровой мусор тоже мусор."},
+  {"id": 47, "category": "Уборка", "title": "Освободить одну полку", "description": "Сделай одну полку полностью пустой и пусть так и остаётся. Это роскошь, которая ничего не стоит."},
+  {"id": 48, "category": "Уборка", "title": "Уборка с подкастом", "description": "Совмести мытьё окон с интересным подкастом. Через час окна чистые, а ты знаешь что-то новое про древний Египет."},
+  {"id": 49, "category": "Подарок", "title": "Банка 52 причин", "description": "Напиши 52 записки, за что ценишь человека, и сложи в банку — по одной на каждую неделю года."},
+  {"id": 50, "category": "Подарок", "title": "Сертификат на услугу", "description": "Подари сертификат на твою помощь: генеральную уборку, вкусный ужин или день без бытовых дел."},
+  {"id": 51, "category": "Подарок", "title": "Подарок-квест", "description": "Спрячь подарок и оставь цепочку подсказок по дому. Сам подарок может быть скромным — приключение будет главным."},
+  {"id": 52, "category": "Подарок", "title": "Книга рецептов семьи", "description": "Собери любимые семейные рецепты с историями и фото в одну книжку. Бабушкины пирожки станут наследием."},
+  {"id": 53, "category": "Подарок", "title": "Набор для неудачного дня", "description": "Собери коробку: шоколадка, смешная открытка, чай и записка «вскрыть при плохом настроении»."},
+  {"id": 54, "category": "Подарок", "title": "Видео-поздравление от друзей", "description": "Тайно собери короткие видео от друзей и смонтируй в один ролик. Слёзы радости почти неизбежны."},
+  {"id": 55, "category": "Подарок", "title": "Звезда в комнате", "description": "Подари ночник-проектор звёздного неба с запиской «Теперь у тебя есть личная галактика»."},
+  {"id": 56, "category": "Подарок", "title": "Карта ваших мест", "description": "Нарисуй или распечатай карту с отмеченными местами, важными для вас двоих. Красиво и очень лично."},
+  {"id": 57, "category": "Подарок", "title": "Растение с характером", "description": "Подари кактус с именем и «паспортом»: характер, любимая музыка, правила общения. Ухаживать станет веселее."},
+  {"id": 58, "category": "Подарок", "title": "Подписка на впечатления", "description": "Вместо вещи подари серию из трёх совместных выходов: музей, мастер-класс, необычное кафе."},
+  {"id": 59, "category": "Подарок", "title": "Именная настольная игра", "description": "Переделай правила известной игры под друга: карточки с вашими шутками и общими историями."},
+  {"id": 60, "category": "Подарок", "title": "Письмо из прошлого", "description": "Напиши письмо, которое человек откроет через год, и запечатай с датой. Подарок, который сработает дважды."},
+  {"id": 61, "category": "Саморазвитие", "title": "Десять новых слов в день", "description": "Учи по десять слов иностранного языка в день неделю. Используй каждое хотя бы раз, даже в разговоре с котом."},
+  {"id": 62, "category": "Саморазвитие", "title": "Неделя без жалоб", "description": "Попробуй семь дней не жаловаться. Сорвался — начинай заново. Узнаешь, сколько энергии уходило на ворчание."},
+  {"id": 63, "category": "Саморазвитие", "title": "Объяснить сложное ребёнку", "description": "Выбери сложную тему и объясни её так, чтобы понял восьмилетка. Если получилось — значит, сам понял."},
+  {"id": 64, "category": "Саморазвитие", "title": "Утренние три страницы", "description": "Каждое утро пиши три страницы от руки о чём угодно. Через неделю голова станет заметно чище."},
+  {"id": 65, "category": "Саморазвитие", "title": "Освоить один трюк", "description": "Научись жонглировать тремя мячами или фокусу с монетой за неделю. Бесполезно, но невероятно приятно."},
+  {"id": 66, "category": "Саморазвитие", "title": "Читать по 20 страниц", "description": "Каждый вечер читай 20 страниц книги вместо листания ленты. За год это около 25 книг."},
+  {"id": 67, "category": "Саморазвитие", "title": "Список страхов и первые шаги", "description": "Выпиши три страха и к каждому один крошечный шаг навстречу. Например, страх звонков — один звонок в пиццерию."},
+  {"id": 68, "category": "Саморазвитие", "title": "День новых маршрутов", "description": "Пройди привычные пути новыми дорогами. Мозг любит новизну, а ты найдёшь пару неизвестных уголков."},
+  {"id": 69, "category": "Саморазвитие", "title": "Журнал маленьких побед", "description": "Каждый вечер записывай одну победу дня, даже «встал вовремя». Через месяц увидишь, сколько всего сделал."},
+  {"id": 70, "category": "Саморазвитие", "title": "Цифровой детокс на выходной", "description": "Проведи один день без соцсетей. Первые часы рука будет тянуться к телефону — это нормально."},
+  {"id": 71, "category": "Саморазвитие", "title": "Публичное выступление дома", "description": "Подготовь пятиминутную речь на любую тему и выступи перед семьёй. Вопросы из зала обязательны."},
+  {"id": 72, "category": "Саморазвитие", "title": "Пройти бесплатный курс", "description": "Выбери короткий онлайн-курс на неделю и доведи его до конца. Финиш важнее, чем идеальный выбор курса."},
+  {"id": 73, "category": "Отдых", "title": "День ленивца", "description": "Официально объяви день ничегонеделания: пижама, сериалы, никаких планов. Чувство вины не приглашено."},
+  {"id": 74, "category": "Отдых", "title": "Микропутешествие на автобусе", "description": "Сядь на автобус незнакомого маршрута и выйди на конечной. Погуляй час и возвращайся с историей."},
+  {"id": 75, "category": "Отдых", "title": "Ванна с ритуалом", "description": "Соль, свечи, любимая музыка и книга, которую не жалко намочить. Час, когда весь мир подождёт."},
+  {"id": 76, "category": "Отдых", "title": "Пикник на рассвете", "description": "Встань до рассвета, возьми термос и встреть солнце в парке. Утро без людей ощущается как маленький секрет."},
+  {"id": 77, "category": "Отдых", "title": "Марафон старых мультфильмов", "description": "Пересмотри мультфильмы из детства с какао и печеньем. Посмотри, кто из персонажей теперь кажется самым мудрым."},
+  {"id": 78, "category": "Отдых", "title": "Час в гамаке или на траве", "description": "Найди место, где можно лежать и смотреть на облака. Придумай, на что похоже каждое облако."},
+  {"id": 79, "category": "Отдых", "title": "Сон по расписанию младенца", "description": "Позволь себе дневной сон на 20 минут. Профессионалы сна — малыши и коты — знают толк в отдыхе."},
+  {"id": 80, "category": "Отдых", "title": "Пазл на 1000 деталей", "description": "Начни большой пазл и собирай по чуть-чуть по вечерам. Медитация, после которой остаётся картина."},
+  {"id": 81, "category": "Отдых", "title": "Вечер настольных игр", "description": "Позови друзей на настолки с правилом: проигравший рассказывает самый смешной случай из жизни."},
+  {"id": 82, "category": "Отдых", "title": "Прогулка без цели", "description": "Выйди из дома и на каждом перекрёстке подбрасывай монетку: орёл — направо, решка — налево."},
+  {"id": 83, "category": "Отдых", "title": "Домашний спа-день", "description": "Маска для лица, массаж стоп, травяной чай и халат. Объяви себя гостем элитного курорта в своей ванной."},
+  {"id": 84, "category": "Отдых", "title": "Рыбалка без улова", "description": "Сходи на речку с удочкой, не ставя цели поймать рыбу. Главный улов — тишина и пара часов без мыслей."},
+  {"id": 85, "category": "Семья", "title": "Семейное древо за вечер", "description": "Вместе со старшими родственниками составьте семейное древо. Вас ждут неожиданные истории про прадедушек."},
+  {"id": 86, "category": "Семья", "title": "День, когда командуют дети", "description": "Дети планируют весь день: еду, занятия, правила. Родители послушно подчиняются и стараются не паниковать."},
+  {"id": 87, "category": "Семья", "title": "Семейная газета", "description": "Выпустите газету с новостями семьи: интервью с бабушкой, прогноз настроения, колонка про кота."},
+  {"id": 88, "category": "Семья", "title": "Совместный ужин из детства", "description": "Каждый готовит блюдо из своего детства и рассказывает его историю. Вкусно и трогательно одновременно."},
+  {"id": 89, "category": "Семья", "title": "Шалаш из одеял", "description": "Постройте крепость из одеял и подушек и проведите там вечер с фонариком и страшилками."},
+  {"id": 90, "category": "Семья", "title": "Фотоальбом с подписями", "description": "Распечатайте фото за год и подпишите каждое смешными комментариями. Через годы это будет бесценно."},
+  {"id": 91, "category": "Семья", "title": "Семейный совет с печеньем", "description": "Раз в месяц обсуждайте планы и желания за чаем. Правило: каждый говорит, остальные слушают и едят печенье."},
+  {"id": 92, "category": "Семья", "title": "Звонок дальним родственникам", "description": "Позвоните тёте или дяде, с которыми давно не общались. Скорее всего, они будут очень рады."},
+  {"id": 93, "category": "Семья", "title": "Посадить дерево вместе", "description": "Посадите дерево или куст и назовите в честь семейного события. Будете навещать его годами."},
+  {"id": 94, "category": "Семья", "title": "Конкурс семейных талантов", "description": "Каждый показывает свой талант, даже если это умение шевелить ушами. Жюри — домашние питомцы."},
+  {"id": 95, "category": "Семья", "title": "Интервью с бабушкой", "description": "Запишите на видео рассказы бабушки или дедушки о молодости. Истории, которых нет ни в одной книге."},
+  {"id": 96, "category": "Семья", "title": "Неделя семейного челленджа", "description": "Выберите общую цель на неделю: без сладкого, по 10 тысяч шагов. Победители получают поблажку на выходных."},
+  {"id": 97, "category": "Работа", "title": "Час без уведомлений", "description": "Отключи все уведомления на час и сделай самую сложную задачу дня. Окажется, что мир не рухнул."},
+  {"id": 98, "category": "Работа", "title": "Метод помидора", "description": "Работай 25 минут, отдыхай 5. После четырёх циклов — длинный перерыв. Помидор не обязателен, таймер — да."},
+  {"id": 99, "category": "Работа", "title": "Уборка рабочего стола", "description": "Оставь на столе только то, что нужно сегодня. Чистый стол — меньше поводов отвлекаться."},
+  {"id": 100, "category": "Работа", "title": "Совещание стоя", "description": "Предложи провести планёрку стоя. Почему-то стоя все вдруг говорят короче и по делу."},
+  {"id": 101, "category": "Работа", "title": "Список «не делать»", "description": "Составь список дел, которые ты больше не будешь делать или делегируешь. Он важнее любого списка задач."},
+  {"id": 102, "category": "Работа", "title": "Благодарность коллеге", "description": "Напиши коллеге конкретное «спасибо» за помощь. Это займёт минуту, а настроение поднимет на неделю."},
+  {"id": 103, "category": "Работа", "title": "Шаблоны для частых писем", "description": "Сделай заготовки для пяти писем, которые пишешь чаще всего. Сэкономишь часы в месяц."},
+  {"id": 104, "category": "Работа", "title": "Обед вдали от компьютера", "description": "Ешь не за рабочим столом, а хотя бы у окна или на улице. Еда вкуснее, голова свежее."},
+  {"id": 105, "category": "Работа", "title": "Самое страшное — первым", "description": "Начни день с задачи, которую больше всего хочется отложить. Дальше день покажется прогулкой."},
+  {"id": 106, "category": "Работа", "title": "Пятничный итог недели", "description": "В пятницу запиши три сделанных дела и одно, которое можно улучшить. Маленькая привычка, большой рост."},
+  {"id": 107, "category": "Работа", "title": "Научиться горячим клавишам", "description": "Выучи пять сочетаний клавиш в программе, где работаешь больше всего. Коллеги решат, что ты хакер."},
+  {"id": 108, "category": "Работа", "title": "Прогулка-совещание", "description": "Обсудите рабочий вопрос во время прогулки. На свежем воздухе идеи приходят быстрее, а споры стихают."},
+  {"id": 109, "category": "Путешествия", "title": "Поезд в незнакомый город", "description": "Купи билет на ближайший поезд в город, где никогда не был, и проведи там один день."},
+  {"id": 110, "category": "Путешествия", "title": "Путешествие по еде", "description": "Устрой поездку ради одной местной еды: пирожков, рыбы или сыра. Цель вкусная — маршрут подстроится."},
+  {"id": 111, "category": "Путешествия", "title": "Карта желаний на стене", "description": "Повесь карту и отмечай флажками места, куда хочешь поехать. Каждый флажок — маленькое обещание себе."},
+  {"id": 112, "category": "Путешествия", "title": "Поход с ночёвкой рядом", "description": "Выберись с палаткой на одну ночь в лес недалеко от города. Приключение без отпуска и больших затрат."},
+  {"id": 113, "category": "Путешествия", "title": "Дневник путешествия рисунками", "description": "Вместо фото зарисовывай каждый день поездки в блокнот. Даже кривые рисунки запоминаются лучше снимков."},
+  {"id": 114, "category": "Путешествия", "title": "Путешествие налегке", "description": "Отправься в поездку только с рюкзаком. Удивишься, как мало вещей на самом деле нужно для счастья."},
+  {"id": 115, "category": "Путешествия", "title": "Открытка себе из каждого города", "description": "В каждом новом месте отправляй себе открытку домой. Вернувшись, получишь письма от самого себя."},
+  {"id": 116, "category": "Путешествия", "title": "Маршрут по заброшенным станциям", "description": "Найди старые станции или усадьбы рядом с городом и устрой фотоэкскурсию. Соблюдай безопасность."},
+  {"id": 117, "category": "Путешествия", "title": "Выучить 20 фраз перед поездкой", "description": "Перед поездкой за границу выучи 20 фраз на местном языке. Местные оценят даже ужасное произношение."},
+  {"id": 118, "category": "Путешествия", "title": "Велопоездка на выходные", "description": "Проложи маршрут на 30–50 км по живописным местам. Ноги будут против, а душа — за."},
+  {"id": 119, "category": "Путешествия", "title": "Ночёвка в необычном месте", "description": "Найди глэмпинг, домик на дереве или маяк для ночёвки. Обычная гостиница больше не будет прежней."},
+  {"id": 120, "category": "Путешествия", "title": "Путешествие по случайной точке", "description": "Ткни пальцем в карту региона с закрытыми глазами и съезди туда. Если попал в болото — выбирай снова."}
+];
+
+(function () {
+  /* ---------- Состояние ---------- */
+  const FAV_KEY = "fav_ideas", THEME_KEY = "theme", COUNT_KEY = "gen_count";
+  const CATS = ["Все"].concat(Array.from(new Set(IDEAS.map(function (i) { return i.category; }))));
+  const $ = function (id) { return document.getElementById(id); };
+  const byId = function (id) { return IDEAS.find(function (i) { return i.id === id; }); };
+
+  let currentCat = "Все";
+  let current = null;
+  let recent = [];                       // последние 5 показанных идей, только в памяти
+  let favs = readJSON(FAV_KEY, []).filter(function (id) { return !!byId(id); });
+  let genCount = parseInt(read(COUNT_KEY), 10) || 0;
+
+  /* ---------- localStorage с защитой (приватный режим, запрет хранилища) ---------- */
+  function read(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+  function write(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+  function readJSON(k, def) { try { const v = JSON.parse(read(k)); return Array.isArray(v) ? v : def; } catch (e) { return def; } }
+
+  /* ---------- Уведомления ---------- */
+  let toastTimer = null;
+  function toast(text) {
+    const t = $("toast");
+    t.textContent = text;
+    t.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { t.classList.remove("show"); }, 2000);
+  }
+
+  /* ---------- Тема ---------- */
+  function applyTheme(dark) {
+    if (dark) document.documentElement.setAttribute("data-theme", "dark");
+    else document.documentElement.removeAttribute("data-theme");
+    const b = $("themeBtn");
+    b.textContent = dark ? "☀️" : "🌙";
+    b.setAttribute("aria-label", dark ? "Светлая тема" : "Тёмная тема");
+    b.title = (dark ? "Светлая тема" : "Тёмная тема") + " (D)";
+    const tc = $("themeColor"); if (tc) tc.setAttribute("content", dark ? "#1a202c" : "#667eea");
+  }
+  function toggleTheme() {
+    const dark = document.documentElement.getAttribute("data-theme") !== "dark";
+    applyTheme(dark);
+    write(THEME_KEY, dark ? "dark" : "light");
+  }
+
+  /* ---------- Категории с количеством идей ---------- */
+  function renderCats() {
+    const box = $("cats");
+    box.textContent = "";
+    CATS.forEach(function (c) {
+      const count = c === "Все" ? IDEAS.length : IDEAS.filter(function (i) { return i.category === c; }).length;
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "cat" + (c === currentCat ? " active" : "");
+      b.setAttribute("aria-pressed", String(c === currentCat));
+      const s = document.createElement("span"); s.textContent = c;
+      const n = document.createElement("span"); n.className = "n"; n.textContent = " · " + count;
+      b.append(s, n);
+      b.addEventListener("click", function () {
+        if (currentCat === c) return;
+        currentCat = c;
+        renderCats();
+        if (!current || (c !== "Все" && current.category !== c)) show(pickRandom(), true);
+      });
+      box.append(b);
+    });
+  }
+
+  /* ---------- Выбор идеи: без повтора предыдущей ---------- */
+  function pool() { return currentCat === "Все" ? IDEAS : IDEAS.filter(function (i) { return i.category === currentCat; }); }
+  function pickRandom() {
+    const p = pool();
+    if (!p.length) return null;
+    if (p.length === 1) return p[0];
+    let next;
+    do { next = p[Math.floor(Math.random() * p.length)]; } while (current && next.id === current.id);
+    return next;
+  }
+
+  /* ---------- Показ в карточке с плавной сменой ---------- */
+  let animating = false;
+  function paint(idea) {
+    $("cardCat").textContent = idea.category;
+    $("cardTitle").textContent = idea.title;
+    $("cardDesc").textContent = idea.description;
+    paintFav();
+  }
+  function show(idea, remember) {
+    if (!idea) return;
+    if (remember) addRecent(idea);
+    const body = $("cardBody");
+    const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!current || reduce || animating) { current = idea; paint(idea); return; }
+    animating = true;
+    body.classList.add("out");
+    setTimeout(function () {
+      current = idea;
+      paint(idea);
+      body.classList.remove("out");
+      body.classList.add("in");
+      void body.offsetWidth;            // перезапуск перехода
+      body.classList.remove("in");
+      setTimeout(function () { animating = false; }, 280);
+    }, 280);
+  }
+
+  /* ---------- Генерация и счётчик ---------- */
+  function generate() {
+    show(pickRandom(), true);
+    genCount += 1;
+    write(COUNT_KEY, String(genCount));
+    $("genCount").textContent = genCount;
+  }
+  function resetCount() {
+    if (!confirm("Сбросить счётчик сгенерированных идей?")) return;
+    genCount = 0;
+    write(COUNT_KEY, "0");
+    $("genCount").textContent = "0";
+    toast("Счётчик сброшен");
+  }
+
+  /* ---------- Недавние (последние 5) ---------- */
+  function addRecent(idea) {
+    recent = [idea.id].concat(recent.filter(function (id) { return id !== idea.id; })).slice(0, 5);
+    renderRecent();
+  }
+  function renderRecent() {
+    const list = $("recentList");
+    list.textContent = "";
+    recent.forEach(function (id) {
+      const idea = byId(id);
+      const li = document.createElement("li"); li.className = "item";
+      const open = document.createElement("button"); open.type = "button"; open.className = "open";
+      const c = document.createElement("div"); c.className = "c"; c.textContent = idea.category;
+      const t = document.createElement("div"); t.className = "t"; t.textContent = idea.title;
+      open.append(c, t);
+      open.addEventListener("click", function () { show(idea, false); });
+      li.append(open);
+      list.append(li);
+    });
+  }
+
+  /* ---------- Избранное ---------- */
+  function paintFav() {
+    const on = current && favs.indexOf(current.id) !== -1;
+    const b = $("favBtn");
+    b.textContent = on ? "💖" : "🤍";
+    b.setAttribute("aria-pressed", String(!!on));
+    b.setAttribute("aria-label", on ? "Убрать из избранного" : "Добавить в избранное");
+  }
+  function toggleFav(id, fromEl) {
+    const at = favs.indexOf(id);
+    if (at === -1) { favs.push(id); toast("Добавлено в избранное 💖"); confetti(fromEl || $("favBtn")); }
+    else { favs.splice(at, 1); toast("Удалено из избранного"); }
+    write(FAV_KEY, JSON.stringify(favs));
+    paintFav();
+    renderFavs();
+  }
+  function renderFavs() {
+    const list = $("favList");
+    list.textContent = "";
+    favs.forEach(function (id) {
+      const idea = byId(id);
+      const li = document.createElement("li"); li.className = "item";
+      const open = document.createElement("button"); open.type = "button"; open.className = "open"; open.title = "Показать в карточке";
+      const c = document.createElement("div"); c.className = "c"; c.textContent = idea.category;
+      const t = document.createElement("div"); t.className = "t"; t.textContent = idea.title;
+      open.append(c, t);
+      open.addEventListener("click", function () { show(idea, false); window.scrollTo({ top: 0, behavior: "smooth" }); });
+      const del = document.createElement("button"); del.type = "button"; del.className = "del"; del.textContent = "×";
+      del.setAttribute("aria-label", "Удалить «" + idea.title + "» из избранного");
+      del.addEventListener("click", function () { toggleFav(id); });
+      li.append(open, del);
+      list.append(li);
+    });
+    $("favEmpty").hidden = favs.length > 0;
+    $("exportBtn").hidden = favs.length === 0;
+  }
+
+  /* ---------- Экспорт избранного в favorites.txt ---------- */
+  function exportFavs() {
+    const text = favs.map(function (id) { const i = byId(id); return i.category + "\n" + i.title + "\n" + i.description; }).join("\n\n") + "\n";
+    const url = URL.createObjectURL(new Blob([text], { type: "text/plain;charset=utf-8" }));
+    const a = document.createElement("a");
+    a.href = url; a.download = "favorites.txt";
+    document.body.append(a); a.click(); a.remove();
+    setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+  }
+
+  /* ---------- Конфетти: ~30 частиц, 2 секунды ---------- */
+  function confetti(fromEl) {
+    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const r = fromEl.getBoundingClientRect();
+    const x = r.left + r.width / 2, y = r.top + r.height / 2;
+    const colors = ["#667eea", "#764ba2", "#f6ad55", "#f56565", "#48bb78", "#ecc94b", "#ed64a6"];
+    for (let i = 0; i < 30; i++) {
+      const p = document.createElement("div");
+      p.className = "confetti";
+      const angle = Math.random() * Math.PI * 2, dist = 80 + Math.random() * 160;
+      p.style.left = x + "px";
+      p.style.top = y + "px";
+      p.style.background = colors[i % colors.length];
+      p.style.setProperty("--dx", Math.cos(angle) * dist + "px");
+      p.style.setProperty("--dy", Math.sin(angle) * dist + 120 + "px");   // разлёт и падение вниз
+      p.style.setProperty("--rot", (Math.random() * 720 - 360) + "deg");
+      p.style.animationDelay = (Math.random() * 0.15) + "s";
+      document.body.append(p);
+      setTimeout(function () { p.remove(); }, 2300);
+    }
+  }
+
+  /* ---------- Копирование (с запасным путём для file:// и старых браузеров) ---------- */
+  function copyText(text) {
+    if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(text);
+    return new Promise(function (resolve, reject) {
+      const ta = document.createElement("textarea");
+      ta.value = text; ta.setAttribute("readonly", "");
+      ta.style.position = "fixed"; ta.style.opacity = "0";
+      document.body.append(ta); ta.select();
+      try { document.execCommand("copy") ? resolve() : reject(); } catch (e) { reject(e); }
+      ta.remove();
+    });
+  }
+  let copyTimer = null;
+  function copyCurrent() {
+    if (!current) return;
+    const btn = $("copyBtn");
+    copyText(current.title + "\n" + current.description).then(function () {
+      btn.textContent = "✅";
+      toast("Скопировано ✅");
+      clearTimeout(copyTimer);
+      copyTimer = setTimeout(function () { btn.textContent = "📋"; }, 1200);
+    }).catch(function () { toast("Не удалось скопировать — выделите текст вручную"); });
+  }
+
+  /* ---------- Поделиться: Web Share API или ссылка + текст в буфер ---------- */
+  function shareCurrent() {
+    if (!current) return;
+    const text = current.title + "\n" + current.description;
+    if (navigator.share) {
+      navigator.share({ title: "Генератор идей", text: text }).catch(function () {});   // отмена — не ошибка
+    } else {
+      copyText(location.href + "\n\n" + text)
+        .then(function () { toast("Скопировано!"); })
+        .catch(function () { toast("Не удалось скопировать — выделите текст вручную"); });
+    }
+  }
+
+  /* ---------- Сброс счётчика: двойной клик или долгое нажатие ---------- */
+  const countEl = $("genCount");
+  let pressTimer = null;
+  countEl.addEventListener("dblclick", resetCount);
+  countEl.addEventListener("pointerdown", function () { pressTimer = setTimeout(function () { pressTimer = null; resetCount(); }, 700); });
+  ["pointerup", "pointerleave", "pointercancel"].forEach(function (t) {
+    countEl.addEventListener(t, function () { clearTimeout(pressTimer); });
+  });
+  countEl.addEventListener("contextmenu", function (e) { e.preventDefault(); });
+
+  /* ---------- Кнопки ---------- */
+  $("genBtn").addEventListener("click", generate);
+  $("copyBtn").addEventListener("click", copyCurrent);
+  $("shareBtn").addEventListener("click", shareCurrent);
+  $("favBtn").addEventListener("click", function () { if (current) toggleFav(current.id, this); });
+  $("exportBtn").addEventListener("click", exportFavs);
+  $("themeBtn").addEventListener("click", toggleTheme);
+
+  /* ---------- Клавиши (e.code — работает и на русской раскладке) ---------- */
+  document.addEventListener("keydown", function (e) {
+    if (e.ctrlKey || e.metaKey || e.altKey) return;
+    const tag = (e.target && e.target.tagName) || "";
+    if (tag === "INPUT" || tag === "TEXTAREA" || (e.target && e.target.isContentEditable)) return;
+    if ((e.key === " " || e.key === "Enter") && tag !== "BUTTON") { e.preventDefault(); generate(); }
+    else if (e.code === "KeyC") copyCurrent();
+    else if (e.code === "KeyF") { if (current) toggleFav(current.id); }
+    else if (e.code === "KeyD") toggleTheme();
+  });
+
+  /* ---------- Старт ---------- */
+  applyTheme(read(THEME_KEY) === "dark");
+  countEl.textContent = genCount;
+  renderCats();
+  renderFavs();
+  show(pickRandom(), true);
+})();
+</script>
+</body>
+</html>
