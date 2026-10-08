@@ -25,6 +25,9 @@
 <meta name="twitter:description" content="120 идей для свидания, уборки, подарка, отдыха и путешествий.">
 <!-- Иконка вкладки: лампочка на фирменном градиенте (SVG прямо в файле) -->
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23667eea'/%3E%3Cstop offset='1' stop-color='%23764ba2'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Ccircle cx='32' cy='27' r='13' fill='%23fff'/%3E%3Crect x='25' y='40' width='14' height='6' rx='2' fill='%23fff'/%3E%3Crect x='27' y='48' width='10' height='5' rx='2.5' fill='%23fff'/%3E%3C/svg%3E">
+<!-- Установка на телефон как приложение -->
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <script>
   /* Тема — до отрисовки страницы, чтобы не мигала светлая */
   try { if (localStorage.getItem("theme") === "dark") document.documentElement.setAttribute("data-theme", "dark"); } catch (e) {}
@@ -120,12 +123,15 @@
     position: relative; background: var(--surface); border-radius: 24px;
     padding: 30px 30px 26px 38px; box-shadow: var(--shadow); overflow: hidden;
     min-height: 220px; display: grid; gap: 12px; align-content: start;
+    touch-action: pan-y;                     /* свайп влево/вправо — следующая идея, вверх/вниз — прокрутка */
   }
-  .card::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 8px; background: var(--grad); }
+  .card::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 8px; background: var(--active); }   /* темнее фона страницы — не сливается */
   .card .body { display: grid; gap: 12px; transition: opacity 0.28s ease, transform 0.28s ease; }
   .card .body.out { opacity: 0; transform: translateY(12px); }
   .card .body.in { opacity: 0; transform: translateY(-12px); }
+  .top { display: flex; justify-content: space-between; align-items: baseline; gap: 6px 12px; flex-wrap: wrap; }
   .label { font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--label); }
+  .progress { font-size: 12px; font-weight: 600; color: var(--muted); font-variant-numeric: tabular-nums; }
   .title { margin: 0; font-size: clamp(24px, 5vw, 32px); font-weight: 800; line-height: 1.2; letter-spacing: -0.01em; }
   .desc { margin: 0; font-size: 17px; line-height: 1.6; color: var(--text); }
   .actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 6px; }
@@ -147,7 +153,7 @@
   .gen:hover { transform: translateY(-2px); }
   .gen:active { transform: translateY(1px) scale(0.98); }
 
-  /* ---------- Панели: недавние и избранное ---------- */
+  /* ---------- Панели: недавние, избранное, все идеи ---------- */
   .panel { background: var(--surface); border-radius: 24px; padding: 20px 22px 18px; box-shadow: var(--shadow); }
   .panel h2 { margin: 0 0 12px; font-size: 19px; font-weight: 800; }
   .panel-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
@@ -160,8 +166,8 @@
   .item .open { appearance: none; border: 0; background: none; padding: 2px 0; text-align: left; cursor: pointer; font: inherit; color: inherit; }
   .item .c { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--label); margin-bottom: 2px; }
   .item .t { font-weight: 700; font-size: 15px; overflow-wrap: anywhere; }
-  .recent .item { grid-template-columns: minmax(0, 1fr); padding: 8px 12px; }
-  .recent .item .t { font-size: 14px; font-weight: 600; }
+  .recent .item, .catalog .item { grid-template-columns: minmax(0, 1fr); padding: 8px 12px; }
+  .recent .item .t, .catalog .item .t { font-size: 14px; font-weight: 600; }
   .del {
     appearance: none; width: 36px; height: 36px; border-radius: 10px; border: 0; background: transparent;
     color: var(--muted); font-size: 22px; line-height: 1; cursor: pointer;
@@ -173,22 +179,59 @@
     border-radius: 12px; padding: 0 14px; min-height: 40px; font: 600 14px system-ui, -apple-system, "Segoe UI", sans-serif; cursor: pointer;
   }
 
-  /* ---------- Подвал: счётчик и подсказка ---------- */
+  /* ---------- Все идеи: раскрывающийся список с поиском ---------- */
+  .catalog summary {
+    list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    min-height: 40px; border-radius: 12px;
+  }
+  .catalog summary::-webkit-details-marker { display: none; }
+  .catalog summary h2 { margin: 0; }
+  .catalog .chev { color: var(--muted); font-size: 14px; font-weight: 600; white-space: nowrap; }
+  .catalog .chev::after { content: "▾"; display: inline-block; margin-left: 6px; transition: transform 0.2s; }
+  .catalog[open] .chev::after { transform: rotate(180deg); }
+  .catalog[open] summary { margin-bottom: 12px; }
+  .search {
+    width: 100%; min-height: 46px; padding: 0 14px; border-radius: 12px;
+    border: 1px solid var(--line); background: var(--surface-2); color: var(--ink);
+    font: 16px system-ui, -apple-system, "Segoe UI", sans-serif;   /* 16px — чтобы телефон не увеличивал страницу */
+  }
+  .search::placeholder { color: var(--muted); opacity: 1; }
+  .note { margin: 10px 0; font-size: 14px; color: var(--muted); }
+  .catalog .list { max-height: 60vh; overflow-y: auto; overscroll-behavior: contain; padding-right: 2px; }
+  .star { font-size: 13px; }
+  .link-btn {
+    appearance: none; border: 0; background: none; padding: 4px 2px; cursor: pointer;
+    color: var(--label); font: 700 14px system-ui, -apple-system, "Segoe UI", sans-serif; text-decoration: underline;
+  }
+
+  /* ---------- Подвал: счётчик, подсказка, установка ---------- */
   footer { justify-self: center; text-align: center; color: var(--on-page); font-size: 13px; display: grid; gap: 6px;
            background: var(--footer-bg); border-radius: 14px; padding: 10px 16px; }
   .count-num { font-weight: 700; font-variant-numeric: tabular-nums; cursor: pointer; user-select: none; -webkit-user-select: none; padding: 2px 6px; border-radius: 6px; }
   .count-num:hover { background: rgba(255, 255, 255, 0.18); }
   kbd { font: 600 12px ui-monospace, Menlo, monospace; padding: 1px 6px; border-radius: 5px; background: rgba(255, 255, 255, 0.18); }
+  .hint-touch { display: none; }
+  @media (hover: none) { .hint { display: none; } .hint-touch { display: block; } }
+  .install {
+    appearance: none; border: 0; justify-self: center; margin-bottom: 4px; min-height: 40px; padding: 0 18px; border-radius: 999px;
+    background: var(--surface); color: var(--ink); font: 700 14px system-ui, -apple-system, "Segoe UI", sans-serif; cursor: pointer;
+  }
 
   /* ---------- Уведомления (toast) ---------- */
   .toast {
     position: fixed; left: 50%; bottom: 24px; z-index: 40;
     transform: translate(-50%, 20px); opacity: 0; pointer-events: none;
-    background: rgba(20, 22, 40, 0.88); color: #fff; padding: 12px 18px; border-radius: 14px;
-    font-size: 15px; font-weight: 600; max-width: calc(100% - 32px); text-align: center;
+    display: flex; align-items: center; gap: 14px;
+    background: rgba(20, 22, 40, 0.92); color: #fff; padding: 12px 18px; border-radius: 14px;
+    font-size: 15px; font-weight: 600; width: max-content; max-width: calc(100% - 32px); text-align: center;
     transition: opacity 0.3s, transform 0.3s;
   }
   .toast.show { opacity: 1; transform: translate(-50%, 0); }
+  .toast.actionable { pointer-events: auto; }
+  .toast-action {
+    appearance: none; border: 0; background: none; padding: 6px 2px; cursor: pointer; white-space: nowrap;
+    color: #c3cdff; font: 800 15px system-ui, -apple-system, "Segoe UI", sans-serif; text-decoration: underline;
+  }
 
   /* ---------- Конфетти ---------- */
   .confetti { position: fixed; top: 0; left: 0; width: 10px; height: 14px; border-radius: 2px; z-index: 30; pointer-events: none; animation: fall 2s ease-out forwards; }
@@ -197,8 +240,9 @@
     100% { transform: translate(var(--dx), var(--dy)) rotate(var(--rot)); opacity: 0; }
   }
 
-  button:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
-  .card button:focus-visible, .panel button:focus-visible { outline-color: var(--g1); }
+  button:focus-visible, summary:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+  .card button:focus-visible, .panel button:focus-visible, .panel summary:focus-visible { outline-color: var(--g1); }
+  .search:focus-visible { outline: 3px solid var(--g1); outline-offset: 1px; }
 
   /* ---------- Телефон ---------- */
   @media (max-width: 480px) {
@@ -211,10 +255,9 @@
     .panel { padding: 16px 14px 14px; border-radius: 20px; }
     .actions { justify-content: stretch; }
     .actions .icon-btn { flex: 1; }
-    .hint { display: none; }
   }
   @media (prefers-reduced-motion: reduce) {
-    .card .body, .cat, .gen, .icon-btn, .toast { transition: none; }
+    .card .body, .cat, .gen, .icon-btn, .toast, .catalog .chev::after { transition: none; }
   }
 </style>
 </head>
@@ -227,18 +270,23 @@
     <p>Выбери категорию и жми — идея найдётся.</p>
   </header>
 
+  <noscript><p class="panel">Чтобы получать идеи, включите JavaScript в браузере.</p></noscript>
+
   <nav class="cats" id="cats" aria-label="Категории"></nav>
 
-  <!-- Карточка текущей идеи -->
-  <article class="card" aria-live="polite">
-    <div class="body" id="cardBody">
-      <div class="label" id="cardCat"></div>
+  <!-- Карточка текущей идеи (свайп — следующая) -->
+  <article class="card" id="card">
+    <div class="body" id="cardBody" aria-live="polite" aria-atomic="true">
+      <div class="top">
+        <div class="label" id="cardCat"></div>
+        <div class="progress" id="progress" title="Идеи не повторяются, пока не покажутся все в категории"></div>
+      </div>
       <h2 class="title" id="cardTitle"></h2>
       <p class="desc" id="cardDesc"></p>
     </div>
     <div class="actions">
       <button class="icon-btn" id="copyBtn" type="button" title="Скопировать (C)" aria-label="Скопировать идею">📋</button>
-      <button class="icon-btn" id="shareBtn" type="button" title="Поделиться" aria-label="Поделиться идеей">📤</button>
+      <button class="icon-btn" id="shareBtn" type="button" title="Поделиться ссылкой на идею" aria-label="Поделиться идеей">📤</button>
       <button class="icon-btn" id="favBtn" type="button" title="В избранное (F)" aria-label="Добавить в избранное" aria-pressed="false">🤍</button>
     </div>
   </article>
@@ -258,16 +306,26 @@
       <button class="export" id="exportBtn" type="button" hidden>⬇️ Скачать избранное</button>
     </div>
     <ul class="list" id="favList"></ul>
-    <p class="empty" id="favEmpty">Пока пусто</p>
+    <p class="empty" id="favEmpty">Пока пусто. Нажмите 🤍 на карточке — идея сохранится здесь.</p>
   </section>
 
+  <!-- Все идеи списком, с поиском -->
+  <details class="panel catalog" id="catalog">
+    <summary><h2>📚 Все идеи</h2><span class="chev" id="catalogCount"></span></summary>
+    <input class="search" id="searchInput" type="search" placeholder="Поиск: кот, подарок, 15 минут…" aria-label="Поиск по идеям" autocomplete="off" enterkeyhint="search">
+    <p class="note" id="catalogNote" aria-live="polite"></p>
+    <ul class="list" id="catalogList"></ul>
+  </details>
+
   <footer>
+    <button class="install" id="installBtn" type="button" hidden>📲 Установить на телефон</button>
     <div>Сгенерировано идей: <span class="count-num" id="genCount" title="Двойной клик или долгое нажатие — сбросить">0</span></div>
-    <div class="hint"><kbd>Пробел</kbd> — новая идея · <kbd>C</kbd> — копировать · <kbd>F</kbd> — в избранное · <kbd>D</kbd> — тема</div>
+    <div class="hint"><kbd>Пробел</kbd> — новая идея · <kbd>C</kbd> — копировать · <kbd>F</kbd> — в избранное · <kbd>D</kbd> — тема · <kbd>/</kbd> — поиск</div>
+    <div class="hint-touch">Смахните карточку влево или вправо — будет новая идея</div>
   </footer>
 </main>
 
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"><span id="toastText"></span><button class="toast-action" id="toastAction" type="button" hidden></button></div>
 
 <script>
 const IDEAS = [
@@ -395,15 +453,18 @@ const IDEAS = [
 
 (function () {
   /* ---------- Состояние ---------- */
-  const FAV_KEY = "fav_ideas", THEME_KEY = "theme", COUNT_KEY = "gen_count";
+  const FAV_KEY = "fav_ideas", THEME_KEY = "theme", COUNT_KEY = "gen_count", SEEN_KEY = "seen_ideas";
+  const SITE = "https://dexterity-maker.github.io/generator-idei/";
   const CATS = ["Все"].concat(Array.from(new Set(IDEAS.map(function (i) { return i.category; }))));
   const $ = function (id) { return document.getElementById(id); };
   const byId = function (id) { return IDEAS.find(function (i) { return i.id === id; }); };
 
   let currentCat = "Все";
-  let current = null;
+  let current = null;                    // идея, которая сейчас в карточке
+  let latest = null;                     // последняя выбранная (во время смены карточки ещё не нарисована)
   let recent = [];                       // последние 5 показанных идей, только в памяти
   let favs = readJSON(FAV_KEY, []).filter(function (id) { return !!byId(id); });
+  let seen = readJSON(SEEN_KEY, []).filter(function (id) { return !!byId(id); });   // уже показанные — не повторяем
   let genCount = parseInt(read(COUNT_KEY), 10) || 0;
 
   /* ---------- localStorage с защитой (приватный режим, запрет хранилища) ---------- */
@@ -411,15 +472,30 @@ const IDEAS = [
   function write(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
   function readJSON(k, def) { try { const v = JSON.parse(read(k)); return Array.isArray(v) ? v : def; } catch (e) { return def; } }
 
-  /* ---------- Уведомления ---------- */
-  let toastTimer = null;
-  function toast(text) {
-    const t = $("toast");
-    t.textContent = text;
+  /* ---------- Склонение: 1 идея, 2 идеи, 5 идей ---------- */
+  function plural(n, one, few, many) {
+    const m10 = n % 10, m100 = n % 100;
+    if (m10 === 1 && m100 !== 11) return one;
+    if (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) return few;
+    return many;
+  }
+  function reduceMotion() { return !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches); }
+
+  /* ---------- Уведомления (с кнопкой «Вернуть», если нужна) ---------- */
+  let toastTimer = null, toastFn = null;
+  function toast(text, action) {
+    const t = $("toast"), btn = $("toastAction");
+    $("toastText").textContent = text;
+    toastFn = action ? action.fn : null;
+    btn.hidden = !action;
+    if (action) btn.textContent = action.label;
+    t.classList.toggle("actionable", !!action);
     t.classList.add("show");
     clearTimeout(toastTimer);
-    toastTimer = setTimeout(function () { t.classList.remove("show"); }, 2000);
+    toastTimer = setTimeout(hideToast, action ? 5000 : 2000);
   }
+  function hideToast() { $("toast").classList.remove("show", "actionable"); toastFn = null; }
+  $("toastAction").addEventListener("click", function () { const fn = toastFn; hideToast(); if (fn) fn(); });
 
   /* ---------- Тема ---------- */
   function applyTheme(dark) {
@@ -450,25 +526,56 @@ const IDEAS = [
       const s = document.createElement("span"); s.textContent = c;
       const n = document.createElement("span"); n.className = "n"; n.textContent = " · " + count;
       b.append(s, n);
-      b.addEventListener("click", function () {
-        if (currentCat === c) return;
-        currentCat = c;
-        renderCats();
-        if (!current || (c !== "Все" && current.category !== c)) show(pickRandom(), true);
-      });
+      b.addEventListener("click", function () { setCat(c); });
       box.append(b);
     });
   }
+  function setCat(c) {
+    if (currentCat === c) return;
+    currentCat = c;
+    renderCats();
+    if (!current || (c !== "Все" && current.category !== c)) show(pickRandom(), true);
+    renderProgress();
+    renderCatalog();
+  }
 
-  /* ---------- Выбор идеи: без повтора предыдущей ---------- */
+  /* ---------- Выбор идеи: без повторов, пока не покажутся все в категории ---------- */
   function pool() { return currentCat === "Все" ? IDEAS : IDEAS.filter(function (i) { return i.category === currentCat; }); }
+  function unseen(p) { return p.filter(function (i) { return seen.indexOf(i.id) === -1; }); }
+  function markSeen(id) {
+    if (seen.indexOf(id) !== -1) return;
+    seen.push(id);
+    write(SEEN_KEY, JSON.stringify(seen));
+  }
   function pickRandom() {
     const p = pool();
     if (!p.length) return null;
-    if (p.length === 1) return p[0];
-    let next;
-    do { next = p[Math.floor(Math.random() * p.length)]; } while (current && next.id === current.id);
-    return next;
+    let fresh = unseen(p);
+    if (!fresh.length) {                 // круг пройден — забываем показанные в этой категории
+      const ids = p.map(function (i) { return i.id; });
+      seen = seen.filter(function (id) { return ids.indexOf(id) === -1; });
+      write(SEEN_KEY, JSON.stringify(seen));
+      fresh = p.filter(function (i) { return !latest || i.id !== latest.id || p.length === 1; });
+      toast("🔄 Все " + p.length + " " + plural(p.length, "идея", "идеи", "идей") +
+            (currentCat === "Все" ? "" : " «" + currentCat + "»") + " просмотрены — новый круг");
+    }
+    return fresh[Math.floor(Math.random() * fresh.length)];
+  }
+  function renderProgress() {
+    const p = pool(), left = unseen(p).length;
+    $("progress").textContent = left
+      ? "ещё " + left + " " + plural(left, "новая", "новые", "новых") + " из " + p.length
+      : "все " + p.length + " просмотрены 🎉";
+  }
+
+  /* ---------- Ссылка на идею: …/#idea-17 ---------- */
+  function ideaUrl(idea) {
+    const base = /^https?:$/.test(location.protocol) ? location.href.split("#")[0] : SITE;
+    return base + "#idea-" + idea.id;
+  }
+  function ideaFromHash() {
+    const m = /^#idea-(\d+)$/.exec(location.hash);
+    return m ? byId(Number(m[1])) || null : null;
   }
 
   /* ---------- Показ в карточке с плавной сменой ---------- */
@@ -478,24 +585,32 @@ const IDEAS = [
     $("cardTitle").textContent = idea.title;
     $("cardDesc").textContent = idea.description;
     paintFav();
+    renderProgress();
+    document.title = idea.title + " — Генератор идей";
+    try { history.replaceState(null, "", "#idea-" + idea.id); } catch (e) {}   // адрес = ссылка на эту идею
   }
   function show(idea, remember) {
     if (!idea) return;
     if (remember) addRecent(idea);
-    const body = $("cardBody");
-    const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (!current || reduce || animating) { current = idea; paint(idea); return; }
+    markSeen(idea.id);
+    latest = idea;
+    if (!current || reduceMotion()) { current = idea; paint(idea); return; }
+    if (animating) return;               // смена уже идёт — нарисуем последнюю выбранную
     animating = true;
+    const body = $("cardBody");
     body.classList.add("out");
     setTimeout(function () {
-      current = idea;
-      paint(idea);
+      animating = false;
+      current = latest;
+      paint(current);
       body.classList.remove("out");
       body.classList.add("in");
       void body.offsetWidth;            // перезапуск перехода
       body.classList.remove("in");
-      setTimeout(function () { animating = false; }, 280);
     }, 280);
+  }
+  function toCard() {
+    $("card").scrollIntoView({ behavior: reduceMotion() ? "auto" : "smooth", block: "center" });
   }
 
   /* ---------- Генерация и счётчик ---------- */
@@ -513,6 +628,22 @@ const IDEAS = [
     toast("Счётчик сброшен");
   }
 
+  /* ---------- Список идей (общий для недавних, избранного и каталога) ---------- */
+  function ideaItem(idea, onOpen, noStar) {
+    const li = document.createElement("li"); li.className = "item";
+    const open = document.createElement("button"); open.type = "button"; open.className = "open"; open.title = "Показать в карточке";
+    const c = document.createElement("div"); c.className = "c"; c.textContent = idea.category;
+    const t = document.createElement("div"); t.className = "t"; t.textContent = idea.title;
+    if (!noStar && favs.indexOf(idea.id) !== -1) {
+      const s = document.createElement("span"); s.className = "star"; s.textContent = " ⭐"; s.title = "В избранном";
+      t.append(s);
+    }
+    open.append(c, t);
+    open.addEventListener("click", onOpen);
+    li.append(open);
+    return li;
+  }
+
   /* ---------- Недавние (последние 5) ---------- */
   function addRecent(idea) {
     recent = [idea.id].concat(recent.filter(function (id) { return id !== idea.id; })).slice(0, 5);
@@ -523,14 +654,7 @@ const IDEAS = [
     list.textContent = "";
     recent.forEach(function (id) {
       const idea = byId(id);
-      const li = document.createElement("li"); li.className = "item";
-      const open = document.createElement("button"); open.type = "button"; open.className = "open";
-      const c = document.createElement("div"); c.className = "c"; c.textContent = idea.category;
-      const t = document.createElement("div"); t.className = "t"; t.textContent = idea.title;
-      open.append(c, t);
-      open.addEventListener("click", function () { show(idea, false); });
-      li.append(open);
-      list.append(li);
+      list.append(ideaItem(idea, function () { show(idea, false); }));
     });
   }
 
@@ -542,29 +666,38 @@ const IDEAS = [
     b.setAttribute("aria-pressed", String(!!on));
     b.setAttribute("aria-label", on ? "Убрать из избранного" : "Добавить в избранное");
   }
-  function toggleFav(id, fromEl) {
-    const at = favs.indexOf(id);
-    if (at === -1) { favs.push(id); toast("Добавлено в избранное 💖"); confetti(fromEl || $("favBtn")); }
-    else { favs.splice(at, 1); toast("Удалено из избранного"); }
+  function saveFavs() {
     write(FAV_KEY, JSON.stringify(favs));
     paintFav();
     renderFavs();
+    renderRecent();
+    renderCatalog();
+  }
+  function toggleFav(id, fromEl) {
+    const at = favs.indexOf(id);
+    if (at === -1) {
+      favs.push(id);
+      toast("Добавлено в избранное 💖");
+      confetti(fromEl || $("favBtn"));
+    } else {
+      favs.splice(at, 1);
+      toast("Удалено из избранного", { label: "Вернуть", fn: function () {
+        if (favs.indexOf(id) === -1) { favs.splice(Math.min(at, favs.length), 0, id); saveFavs(); }
+        toast("Вернули в избранное 💖");
+      } });
+    }
+    saveFavs();
   }
   function renderFavs() {
     const list = $("favList");
     list.textContent = "";
     favs.forEach(function (id) {
       const idea = byId(id);
-      const li = document.createElement("li"); li.className = "item";
-      const open = document.createElement("button"); open.type = "button"; open.className = "open"; open.title = "Показать в карточке";
-      const c = document.createElement("div"); c.className = "c"; c.textContent = idea.category;
-      const t = document.createElement("div"); t.className = "t"; t.textContent = idea.title;
-      open.append(c, t);
-      open.addEventListener("click", function () { show(idea, false); window.scrollTo({ top: 0, behavior: "smooth" }); });
+      const li = ideaItem(idea, function () { show(idea, false); toCard(); }, true);   // без звёздочки — это и так избранное
       const del = document.createElement("button"); del.type = "button"; del.className = "del"; del.textContent = "×";
       del.setAttribute("aria-label", "Удалить «" + idea.title + "» из избранного");
       del.addEventListener("click", function () { toggleFav(id); });
-      li.append(open, del);
+      li.append(del);
       list.append(li);
     });
     $("favEmpty").hidden = favs.length > 0;
@@ -581,9 +714,51 @@ const IDEAS = [
     setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
   }
 
+  /* ---------- Все идеи: поиск по началу слов в названии и описании (ё = е, слова в любом порядке) ---------- */
+  function splitWords(s) { return s.toLowerCase().replace(/ё/g, "е").split(/[^a-zа-я0-9]+/).filter(Boolean); }
+  const ideaWords = new Map();
+  function wordsOf(i) {
+    if (!ideaWords.has(i.id)) ideaWords.set(i.id, splitWords(i.title + " " + i.description + " " + i.category));
+    return ideaWords.get(i.id);
+  }
+  function renderCatalog() {
+    const box = $("catalog");
+    const where = currentCat === "Все" ? "во всех категориях" : "в категории «" + currentCat + "»";
+    $("catalogCount").textContent = pool().length + " " + plural(pool().length, "идея", "идеи", "идей");
+    if (!box.open) return;
+    const words = splitWords($("searchInput").value);
+    const match = function (i) {
+      const ws = wordsOf(i);                   // «чай» найдёт «чай», но не «случайный»
+      return words.every(function (w) { return ws.some(function (x) { return x.indexOf(w) === 0; }); });
+    };
+    const found = pool().filter(match);
+    const list = $("catalogList");
+    list.textContent = "";
+    found.forEach(function (idea) {
+      list.append(ideaItem(idea, function () { show(idea, true); toCard(); }));
+    });
+    const note = $("catalogNote");
+    note.textContent = "";
+    if (found.length) {
+      note.textContent = (words.length ? "Нашлось " : "") + found.length + " " + plural(found.length, "идея", "идеи", "идей") + " " + where;
+    } else if (currentCat !== "Все" && IDEAS.some(match)) {
+      note.textContent = "Ничего не нашлось " + where + ". ";
+      const b = document.createElement("button"); b.type = "button"; b.className = "link-btn"; b.textContent = "Искать во всех категориях";
+      b.addEventListener("click", function () { setCat("Все"); $("searchInput").focus(); });
+      note.append(b);
+    } else {
+      note.textContent = "Ничего не нашлось. Попробуйте другое слово.";
+    }
+  }
+  function openSearch() {
+    $("catalog").open = true;
+    renderCatalog();
+    $("searchInput").focus();
+  }
+
   /* ---------- Конфетти: ~30 частиц, 2 секунды ---------- */
   function confetti(fromEl) {
-    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (reduceMotion()) return;
     const r = fromEl.getBoundingClientRect();
     const x = r.left + r.width / 2, y = r.top + r.height / 2;
     const colors = ["#667eea", "#764ba2", "#f6ad55", "#f56565", "#48bb78", "#ecc94b", "#ed64a6"];
@@ -627,15 +802,15 @@ const IDEAS = [
     }).catch(function () { toast("Не удалось скопировать — выделите текст вручную"); });
   }
 
-  /* ---------- Поделиться: Web Share API или ссылка + текст в буфер ---------- */
+  /* ---------- Поделиться: системное меню со ссылкой на идею или текст + ссылка в буфер ---------- */
   function shareCurrent() {
     if (!current) return;
-    const text = current.title + "\n" + current.description;
+    const text = current.title + "\n" + current.description, url = ideaUrl(current);
     if (navigator.share) {
-      navigator.share({ title: "Генератор идей", text: text }).catch(function () {});   // отмена — не ошибка
+      navigator.share({ title: current.title, text: text, url: url }).catch(function () {});   // отмена — не ошибка
     } else {
-      copyText(location.href + "\n\n" + text)
-        .then(function () { toast("Скопировано!"); })
+      copyText(text + "\n\n" + url)
+        .then(function () { toast("Скопировано! Ссылка откроет эту идею 🔗"); })
         .catch(function () { toast("Не удалось скопировать — выделите текст вручную"); });
     }
   }
@@ -650,6 +825,20 @@ const IDEAS = [
   });
   countEl.addEventListener("contextmenu", function (e) { e.preventDefault(); });
 
+  /* ---------- Свайп по карточке — новая идея (только пальцем, не мышью) ---------- */
+  let swipeX = null, swipeY = 0;
+  $("card").addEventListener("pointerdown", function (e) {
+    swipeX = (e.pointerType === "mouse" || e.target.closest("button")) ? null : e.clientX;
+    swipeY = e.clientY;
+  });
+  $("card").addEventListener("pointerup", function (e) {
+    if (swipeX === null) return;
+    const dx = e.clientX - swipeX, dy = e.clientY - swipeY;
+    swipeX = null;
+    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) generate();
+  });
+  $("card").addEventListener("pointercancel", function () { swipeX = null; });
+
   /* ---------- Кнопки ---------- */
   $("genBtn").addEventListener("click", generate);
   $("copyBtn").addEventListener("click", copyCurrent);
@@ -657,16 +846,44 @@ const IDEAS = [
   $("favBtn").addEventListener("click", function () { if (current) toggleFav(current.id, this); });
   $("exportBtn").addEventListener("click", exportFavs);
   $("themeBtn").addEventListener("click", toggleTheme);
+  $("catalog").addEventListener("toggle", renderCatalog);
+  $("searchInput").addEventListener("input", renderCatalog);
+  window.addEventListener("hashchange", function () {
+    const idea = ideaFromHash();
+    if (idea && (!current || idea.id !== current.id)) show(idea, true);
+  });
 
   /* ---------- Клавиши (e.code — работает и на русской раскладке) ---------- */
   document.addEventListener("keydown", function (e) {
     if (e.ctrlKey || e.metaKey || e.altKey) return;
     const tag = (e.target && e.target.tagName) || "";
     if (tag === "INPUT" || tag === "TEXTAREA" || (e.target && e.target.isContentEditable)) return;
-    if ((e.key === " " || e.key === "Enter") && tag !== "BUTTON") { e.preventDefault(); generate(); }
+    if ((e.key === " " || e.key === "Enter") && tag !== "BUTTON" && tag !== "SUMMARY" && tag !== "A") { e.preventDefault(); generate(); }
     else if (e.code === "KeyC") copyCurrent();
     else if (e.code === "KeyF") { if (current) toggleFav(current.id); }
     else if (e.code === "KeyD") toggleTheme();
+    else if (e.code === "Slash") { e.preventDefault(); openSearch(); }
+  });
+
+  /* ---------- Приложение на телефоне: работа без интернета и установка ---------- */
+  if ("serviceWorker" in navigator && (location.protocol === "https:" || location.hostname === "localhost" || location.hostname === "127.0.0.1")) {
+    window.addEventListener("load", function () { navigator.serviceWorker.register("sw.js").catch(function () {}); });
+  }
+  let installPrompt = null;
+  window.addEventListener("beforeinstallprompt", function (e) {
+    e.preventDefault();
+    installPrompt = e;
+    $("installBtn").hidden = false;
+  });
+  $("installBtn").addEventListener("click", function () {
+    if (!installPrompt) return;
+    installPrompt.prompt();
+    installPrompt.userChoice.then(function () { installPrompt = null; $("installBtn").hidden = true; }, function () {});
+  });
+  window.addEventListener("appinstalled", function () {
+    installPrompt = null;
+    $("installBtn").hidden = true;
+    toast("Готово! Генератор идей на главном экране 📲");
   });
 
   /* ---------- Старт ---------- */
@@ -674,7 +891,8 @@ const IDEAS = [
   countEl.textContent = genCount;
   renderCats();
   renderFavs();
-  show(pickRandom(), true);
+  renderCatalog();
+  show(ideaFromHash() || pickRandom(), true);
 })();
 </script>
 </body>
